@@ -1,29 +1,33 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <aside-component/>
+        <router-view/>
     </div>
-    <router-view/>
-  </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+    #app,
+    html {
+        height: 100%;
     }
-  }
-}
+
+    body {
+        background: #002B36;
+        margin: 0;
+        height: calc(100% - 40px);
+    }
+    #app{
+        padding: 20px 50px;
+        margin-right:30px;
+    }
 </style>
+
+<script>
+    import AsideComponent from '@/components/Aside.vue'
+
+    export default {
+        components: {
+            AsideComponent
+        }
+    }
+</script>
