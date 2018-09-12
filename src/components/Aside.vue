@@ -2,17 +2,32 @@
   <aside class="tools">
     <div>
       <ul>
-        <li><a href="#"><font-awesome-icon icon="save" /></a></li>
-        <li><a href="#"><font-awesome-icon icon="file" /></a></li>
-        <li><a href="#" class="disabled"><font-awesome-icon icon="copy" /></a></li>
-        <li><a href="#" class="disabled"><font-awesome-icon icon="file-code" /></a></li>
-        <li><a href="#"><font-awesome-icon icon="camera" /></a></li>
+        <li><a class="hint--left" aria-label="Save" @click="saveDocument"><font-awesome-icon icon="save" /></a></li>
+        <li><router-link :to="{name:'new'}" class="hint--left" aria-label="New" @click="newDocument"><font-awesome-icon icon="file" /></router-link></li>
+        <li><router-link :to="{name:'new'}" class="hint--left" aria-label="Duplicate & Edit" @click="duplicateDocument"><font-awesome-icon icon="copy" /></router-link></li>
+        <li><a class="hint--left" aria-label="Raw" @click="rawDocument"><font-awesome-icon icon="file-code" /></a></li>
+        <li><router-link :to="{name:'upload'}" class="hint--left" aria-label="Image Upload" @click="imgDocument"><font-awesome-icon icon="camera" /></router-link></li>
       </ul>
     </div>
   </aside>
 </template>
 
+<script>
+  export default {
+      methods: {
+          saveDocument() {
+          },
+          newDocument() {},
+          duplicateDocument() {},
+          rawDocument() {},
+          imgDocument() {},
+      }
+  }
+</script>
+
 <style scoped lang="scss">
+  @import '~hint.css/hint.base.css';
+
   .tools {
     width: 50px;
     height: 100%;

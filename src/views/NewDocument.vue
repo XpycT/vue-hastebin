@@ -37,6 +37,6 @@
 
 <script>
     export default {
-        name: 'new'
+        name: 'new-document'
     }
 </script>
