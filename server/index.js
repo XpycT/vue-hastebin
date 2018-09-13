@@ -38,8 +38,17 @@ low(adapter)
                 .write()
                 .then(post => res.send(post))
         });
-        // POST /upload
-        app.post('/upload', (req, res) => {
+
+        // GET /img/:id
+        app.get('/img/:id', (req, res) => {
+            const post = db.get('images')
+                .find({id: req.params.id})
+                .value();
+
+            res.send(post)
+        });
+        // POST /img
+        app.post('/img', (req, res) => {
             upload(req, res, function (err) {
                 if (err) {
                     res.json({'status': 'error', 'message' : err })
@@ -57,15 +66,6 @@ low(adapter)
                     .write()
                     .then(img => res.send(img));
             });
-        });
-
-        // GET /img/:id
-        app.get('/img/:id', (req, res) => {
-            const post = db.get('images')
-                .find({id: req.params.id})
-                .value();
-
-            res.send(post)
         });
 
         // Set db default values

@@ -6,7 +6,7 @@
                 drag
                 :show-file-list="false"
                 accept="image/*"
-                action="/upload"
+                action="/img"
                 :on-success="onFileSuccess"
                 :on-error="onFileError"
                 >
