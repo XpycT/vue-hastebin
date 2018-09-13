@@ -2,12 +2,14 @@
 
 Simple pastebin with image uploading
 
-### Compiles and minifies for production
+### Compiles for production
 ```
 yarn install
 yarn run build
+
 cd server
-npm run serve # Server on 0.0.0.0:5000
+yarn install
+yarn run serve # Server on 0.0.0.0:5000
 ```
 
 ### Screenshots
