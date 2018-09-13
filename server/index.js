@@ -1,15 +1,18 @@
 const express = require('express');
+const history = require('connect-history-api-fallback');
 const bodyParser = require('body-parser');
+const serveStatic = require('serve-static');
 const shortid = require('shortid');
 const low = require('lowdb');
 const FileAsync = require('lowdb/adapters/FileAsync');
-
 const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }).single('file');
 
 // Create server
 const app = express();
+app.use(history());
+app.use(serveStatic(__dirname + "./../dist"));
 app.use(bodyParser.json());
 
 // Create database instance and start server
