@@ -1,31 +1,21 @@
 # vue-hastebin
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+Simple pastebin with image uploading
 
 ### Compiles and minifies for production
 ```
+yarn install
 yarn run build
+cd server
+npm run serve # Server on 0.0.0.0:5000
 ```
 
-### Lints and fixes files
-```
-yarn run lint
-```
+### Screenshots
 
-### Run your unit tests
-```
-yarn run test:unit
-```
+image upload
 
-### Run your end-to-end tests
-```
-yarn run test:e2e
-```
+![upload](./images/img_upload.png)
+
+code sharing
+
+![code](./images/code_example.png)
