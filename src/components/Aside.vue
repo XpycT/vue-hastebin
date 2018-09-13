@@ -10,10 +10,10 @@
                         <font-awesome-icon icon="file"/>
                     </router-link>
                 </li>
-                <li><a class="hint--left" aria-label="Duplicate & Edit" @click="duplicateDocument" :class="{disabled:isNew}">
+                <li><a class="hint--left" aria-label="Duplicate & Edit" @click="duplicateDocument" :class="{disabled:isNew || isImg}">
                     <font-awesome-icon icon="copy"/>
                 </a></li>
-                <li><a class="hint--left" aria-label="Raw" @click="rawDocument" :class="{disabled:isNew}">
+                <li><a class="hint--left" aria-label="Raw" @click="rawDocument" :class="{disabled:isNew || isImg}">
                     <font-awesome-icon icon="file-code"/>
                 </a></li>
                 <li>
@@ -33,6 +33,9 @@
         computed: {
             isNew() {
                 return this.$route.params.id === undefined;
+            },
+            isImg() {
+                return this.$route.name === 'upload';
             }
         },
         methods: {
@@ -40,10 +43,10 @@
                 if(this.isNew) eventBus.$emit('SAVE_DOCUMENT');
             },
             duplicateDocument() {
-                if(!this.isNew) eventBus.$emit('DUPLICATE_DOCUMENT');
+                if(!this.isNew && !this.isImg) eventBus.$emit('DUPLICATE_DOCUMENT');
             },
             rawDocument() {
-                if(!this.isNew) eventBus.$emit('RAW_DOCUMENT');
+                if(!this.isNew && !this.isImg) eventBus.$emit('RAW_DOCUMENT');
             },
         }
     }

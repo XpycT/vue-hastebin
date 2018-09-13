@@ -101,7 +101,6 @@
                         if(resp.data.id){
                             let code = resp.data.data;
                             let high = hljs.highlightAuto(code);
-                            console.log(high);
                             this.lineCount = code.split('\n').length;
                             this.paste = high.value;
                         }

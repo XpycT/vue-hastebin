@@ -4,6 +4,10 @@ const shortid = require('shortid');
 const low = require('lowdb');
 const FileAsync = require('lowdb/adapters/FileAsync');
 
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage }).single('file');
+
 // Create server
 const app = express();
 app.use(bodyParser.json());
@@ -27,13 +31,42 @@ low(adapter)
             db.get('pastes')
                 .push(req.body)
                 .last()
-                .assign({id: shortid.generate()})
+                .assign({id: shortid.generate(), type: 'doc'})
                 .write()
                 .then(post => res.send(post))
         });
+        // POST /upload
+        app.post('/upload', (req, res) => {
+            upload(req, res, function (err) {
+                if (err) {
+                    res.json({'status': 'error', 'message' : err })
+                    return;
+                }
+
+                let fileInfo = {
+                    'id': shortid.generate(),
+                    'b64': req.file.buffer.toString('base64'),
+                    'mimetype': req.file.mimetype
+                };
+                db.get('images')
+                    .push(fileInfo)
+                    .last()
+                    .write()
+                    .then(img => res.send(img));
+            });
+        });
+
+        // GET /img/:id
+        app.get('/img/:id', (req, res) => {
+            const post = db.get('images')
+                .find({id: req.params.id})
+                .value();
+
+            res.send(post)
+        });
 
         // Set db default values
-        return db.defaults({pastes: []}).write()
+        return db.defaults({pastes: [], images: []}).write()
     })
     .then(() => {
         app.listen(3003, () => console.log('listening on port 3003'))

@@ -9,15 +9,20 @@ export default new Router({
     mode: 'history',
     routes: [
         {
+            path: '/img/:id?',
+            name: 'upload',
+            component: UploadDocument
+        },
+        {
             path: '/:id?',
             name: 'main',
             component: Document
         },
         {
-            path: '/img/:id?',
-            name: 'upload',
-            component: UploadDocument
-        },
+            path: '**',
+            redirect: '/'
+        }
+
         /*{
           path: '/about',
           name: 'about',
