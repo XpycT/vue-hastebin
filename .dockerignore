@@ -2,6 +2,7 @@ node_modules
 /dist
 db.json
 
+.git
 .idea
 .vscode
 *.suo
