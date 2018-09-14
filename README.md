@@ -2,6 +2,9 @@
 
 Simple pastebin with image uploading
 
+### Demo
+https://vue-hastebin-ulczkosxiv.now.sh/
+
 ### Installation and Usage
 
 1. Make sure you have [Docker installed](https://docs.docker.com/engine/installation/) and running on your host.
