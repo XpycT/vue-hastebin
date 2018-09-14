@@ -2,6 +2,15 @@
 
 Simple pastebin with image uploading
 
+### Installation and Usage
+
+1. Make sure you have [Docker installed](https://docs.docker.com/engine/installation/) and running on your host.
+2. Pull and run vue-pastebin using docker:
+
+```
+docker run -p 5000:5000 -d xa3apg/vue-pastebin
+```
+
 ### Compiles for production
 ```
 yarn install
@@ -16,8 +25,12 @@ yarn run serve # Server on 0.0.0.0:5000
 
 image upload
 
-![upload](./images/img_upload.png)
+![upload](https://raw.githubusercontent.com/XpycT/vue-hastebin/master/images/img_upload.png)
 
 code sharing
 
-![code](./images/code_example.png)
+![code](https://raw.githubusercontent.com/XpycT/vue-hastebin/master/images/code_example.png)
+
+
+### License
+Licensed under MIT.
