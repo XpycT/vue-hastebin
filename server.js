@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const history = require('connect-history-api-fallback');
 const bodyParser = require('body-parser');
@@ -12,7 +13,7 @@ const upload = multer({ storage: storage }).single('file');
 // Create server
 const app = express();
 app.use(history());
-app.use(serveStatic(__dirname + "./../dist"));
+app.use(serveStatic(path.join(__dirname, '/dist')));
 app.use(bodyParser.json());
 
 // Create database instance and start server
