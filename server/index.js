@@ -28,6 +28,12 @@ low(adapter)
 
             res.send(post)
         });
+        app.get('/:id.raw', (req, res) => {
+            const post = db.get('pastes')
+                .find({id: req.params.id})
+                .value();
+            res.send(`<pre>${post.data}</pre>`)
+        });
 
         // POST /document
         app.post('/document', (req, res) => {

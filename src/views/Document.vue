@@ -38,6 +38,7 @@
         font-family: monospace;
         text-align: right;
     }
+
     #box {
         padding: 0;
         margin: 0;
@@ -46,6 +47,7 @@
         outline: none;
         font-size: 13px;
     }
+
     #box code {
         padding: 0;
         background: transparent !important; /* don't hide hastebox */
@@ -53,6 +55,7 @@
 </style>
 
 <script>
+    import Vue from 'vue';
     import {eventBus} from '../main';
     import hljs from 'highlight.js';
 
@@ -60,13 +63,14 @@
         name: 'new-document',
         data() {
             return {
-                paste : '',
+                paste: '',
                 lineCount: 0
             }
         },
         created() {
             eventBus.$on('SAVE_DOCUMENT', () => this.saveDocument());
-            if(this.$route.params.id){
+            eventBus.$on('DUPLICATE_DOCUMENT', () => this.duplicateDocument());
+            if (this.$route.params.id) {
                 this.loadDocument();
             }
         },
@@ -75,12 +79,12 @@
         },
         computed: {
             isNew() {
-                return this.$route.params.id === undefined;
+                return (!this.$route.params.id);
             },
             linenos() {
-                if(this.isNew){
+                if (this.isNew) {
                     return '&gt;';
-                }else{
+                } else {
                     let h = '';
                     for (let i = 0; i < this.lineCount; i++) {
                         h += (i + 1).toString() + '<br/>';
@@ -96,9 +100,9 @@
         },
         methods: {
             loadDocument() {
-                this.$http.get('/document/'+this.$route.params.id)
-                    .then(resp =>{
-                        if(resp.data.id){
+                this.$http.get('/document/' + this.$route.params.id)
+                    .then(resp => {
+                        if (resp.data.id) {
                             let code = resp.data.data;
                             let high = hljs.highlightAuto(code);
                             this.lineCount = code.split('\n').length;
@@ -108,16 +112,35 @@
                     console.error(err);
                 })
             },
-            saveDocument() {
-                let paste = this.$refs.textarea.value.trim();
-                this.$http.post('/document', {data: paste})
+            duplicateDocument() {
+                let that = this;
+                this.$http.get('/document/' + this.$route.params.id)
                     .then(resp => {
-                        if(resp.data.id){
-                            this.$router.push({ name: 'main', params: { id: resp.data.id }})
+                        if (resp.data.id) {
+                            let code = resp.data.data;
+                            that.$router.replace('/', () => {
+                                Vue.nextTick()
+                                    .then(function () {
+                                        that.$refs.textarea.value = code;
+                                    });
+                            });
                         }
                     }).catch(err => {
                     console.error(err);
                 })
+            },
+            saveDocument() {
+                let paste = this.$refs.textarea.value.trim();
+                if (paste) {
+                    this.$http.post('/document', {data: paste})
+                        .then(resp => {
+                            if (resp.data.id) {
+                                this.$router.push({name: 'main', params: {id: resp.data.id}})
+                            }
+                        }).catch(err => {
+                        console.error(err);
+                    })
+                }
             }
         }
     }

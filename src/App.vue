@@ -16,9 +16,10 @@
         margin: 0;
         height: calc(100% - 40px);
     }
-    #app{
+
+    #app {
         padding: 20px 50px;
-        margin-right:30px;
+        margin-right: 30px;
     }
 </style>
 

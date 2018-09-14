@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Document from './views/Document.vue'
-import UploadDocument from './views/UploadDocument.vue'
 
 Vue.use(Router);
 
@@ -11,25 +9,19 @@ export default new Router({
         {
             path: '/img/:id?',
             name: 'upload',
-            component: UploadDocument
+            component: () => import(/* webpackChunkName: "upload" */ './views/UploadDocument.vue')
+        },
+        {
+            path: '/:id.raw',
+            name: 'raw',
+            beforeEnter: (to) => {
+                window.location = `${to.params.id}.raw`
+            }
         },
         {
             path: '/:id?',
             name: 'main',
-            component: Document
-        },
-        {
-            path: '**',
-            redirect: '/'
+            component: () => import(/* webpackChunkName: "document" */ './views/Document.vue')
         }
-
-        /*{
-          path: '/about',
-          name: 'about',
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: () => import(/!* webpackChunkName: "about" *!/ './views/About.vue')
-        }*/
     ]
 })

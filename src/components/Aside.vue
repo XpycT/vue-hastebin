@@ -10,7 +10,8 @@
                         <font-awesome-icon icon="file"/>
                     </router-link>
                 </li>
-                <li><a class="hint--left" aria-label="Duplicate & Edit" @click="duplicateDocument" :class="{disabled:isNew || isImg}">
+                <li><a class="hint--left" aria-label="Duplicate & Edit" @click="duplicateDocument"
+                       :class="{disabled:isNew || isImg}">
                     <font-awesome-icon icon="copy"/>
                 </a></li>
                 <li><a class="hint--left" aria-label="Raw" @click="rawDocument" :class="{disabled:isNew || isImg}">
@@ -40,13 +41,13 @@
         },
         methods: {
             saveDocument() {
-                if(this.isNew) eventBus.$emit('SAVE_DOCUMENT');
+                if (this.isNew) eventBus.$emit('SAVE_DOCUMENT');
             },
             duplicateDocument() {
-                if(!this.isNew && !this.isImg) eventBus.$emit('DUPLICATE_DOCUMENT');
+                if (!this.isNew && !this.isImg) eventBus.$emit('DUPLICATE_DOCUMENT');
             },
             rawDocument() {
-                if(!this.isNew && !this.isImg) eventBus.$emit('RAW_DOCUMENT');
+                if (!this.isNew && !this.isImg) this.$router.push({name: 'raw', params: {id: this.$route.params.id}});
             },
         }
     }
